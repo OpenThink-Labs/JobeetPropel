@@ -104,7 +104,7 @@ abstract class BaseJobeetAffiliateForm extends BaseFormPropel
         $obj = new JobeetCategoryAffiliate();
         $obj->setAffiliateId($this->object->getPrimaryKey());
         $obj->setCategoryId($value);
-        $obj->save($con);
+        $obj->save();
       }
     }
   }

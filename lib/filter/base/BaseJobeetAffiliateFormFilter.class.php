@@ -51,11 +51,11 @@ abstract class BaseJobeetAffiliateFormFilter extends BaseFormFilterPropel
     $criteria->addJoin(JobeetCategoryAffiliatePeer::AFFILIATE_ID, JobeetAffiliatePeer::ID);
 
     $value = array_pop($values);
-    $criterion = $criteria->getNewCriterion(JobeetCategoryAffiliatePeer::category_id, $value);
+    $criterion = $criteria->getNewCriterion(JobeetCategoryAffiliatePeer::CATEGORY_ID, $value);
 
     foreach ($values as $value)
     {
-      $criterion->addOr($criteria->getNewCriterion(JobeetCategoryAffiliatePeer::category_id, $value));
+      $criterion->addOr($criteria->getNewCriterion(JobeetCategoryAffiliatePeer::CATEGORY_ID, $value));
     }
 
     $criteria->add($criterion);
