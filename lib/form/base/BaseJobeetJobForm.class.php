@@ -7,7 +7,7 @@
  *
  * @package    jobeet
  * @subpackage form
- * @author     Your name here
+ * @author     Wildan Maulana, OpenThink Labs
  */
 abstract class BaseJobeetJobForm extends BaseFormPropel
 {

@@ -5,7 +5,7 @@
  *
  * @package    jobeet
  * @subpackage filter
- * @author     Your name here
+ * @author     Wildan Maulana, OpenThink Labs
  */
 abstract class BaseJobeetAffiliateFormFilter extends BaseFormFilterPropel
 {
