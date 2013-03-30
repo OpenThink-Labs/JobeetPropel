@@ -13,7 +13,7 @@
   </head>
   <body>
     <div id="container">
-      <div id="header">
+      <div id="header">   
         <div class="content">
           <h1><a href="<?php echo url_for('@homepage') ?>">
             <img src="/legacy/images/logo.jpg" alt="Jobeet Job Board" />
@@ -56,6 +56,16 @@
         <?php endif ?>
  
         <div class="content">
+			<div id="job_history">
+			  Recent viewed jobs:
+			  <ul>
+			    <?php foreach ($sf_user->getJobHistory() as $job): ?>
+			      <li>
+			        <?php echo link_to($job->getPosition().' - '.$job->getCompany(), 'job_show_user', $job) ?>
+			      </li>
+			    <?php endforeach ?>
+			  </ul>
+			</div>           
           <?php echo $sf_content ?>
         </div>
       </div>

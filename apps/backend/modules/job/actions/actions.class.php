@@ -11,7 +11,7 @@ require_once dirname(__FILE__).'/../lib/jobGeneratorHelper.class.php';
  * @author     Wildan Maulana, OpenThink Labs
  * @version    SVN: $Id: actions.class.php 12474 2008-10-31 10:41:27Z fabien $
  */
-class jobActions extends autoJobActions
+class jobActions extends autojobActions
 {
 	public function executeBatchExtend(sfWebRequest $request)
 	{
@@ -27,7 +27,7 @@ class jobActions extends autoJobActions
 		$this->getUser()->setFlash('notice', 'The selected jobs have been extended successfully.');
 	
 		$this->redirect('jobeet_job');
-	}	
+	}
 	
 	public function executeListExtend(sfWebRequest $request)
 	{
@@ -37,7 +37,7 @@ class jobActions extends autoJobActions
 		$this->getUser()->setFlash('notice', 'The selected jobs have been extended successfully.');
 	
 		$this->redirect('jobeet_job');
-	}	
+	}
 	
 	public function executeListDeleteNeverActivated(sfWebRequest $request)
 	{

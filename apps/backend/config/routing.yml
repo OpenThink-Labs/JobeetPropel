@@ -1,3 +1,12 @@
+jobeet_job_testjob:
+  class: sfPropelRouteCollection
+  options:
+    model:                JobeetJob
+    module:               testjob
+    prefix_path:          /testjob
+    column:               id
+    with_wildcard_routes: true
+
 jobeet_category:
   class: sfPropelRouteCollection
   options:

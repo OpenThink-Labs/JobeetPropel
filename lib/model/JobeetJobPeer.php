@@ -1,7 +1,4 @@
 <?php
-
-
-
 /**
  * Skeleton subclass for performing query and update operations on the 'jobeet_job' table.
  *

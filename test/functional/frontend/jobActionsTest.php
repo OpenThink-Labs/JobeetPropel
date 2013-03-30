@@ -1,20 +1,20 @@
 <?php
 
 include(dirname(__FILE__).'/../../bootstrap/functional.php');
- 
+
 $browser = new JobeetTestFunctional(new sfBrowser());
 $browser->loadData();
- 
+
 $browser->info('1 - The homepage')->
-  get('/')->
-  with('request')->begin()->
-    isParameter('module', 'job')->
-    isParameter('action', 'index')->
-  end()->
-  with('response')->begin()->
-    info('  1.1 - Expired jobs are not listed')->
-    checkElement('.jobs td.position:contains("expired")', false)->
-  end()
+get('/')->
+with('request')->begin()->
+isParameter('module', 'job')->
+isParameter('action', 'index')->
+end()->
+with('response')->begin()->
+info('  1.1 - Expired jobs are not listed')->
+checkElement('.jobs td.position:contains("expired")', false)->
+end()
 ;
 
 $max = sfConfig::get('app_max_jobs_on_homepage');
@@ -37,13 +37,13 @@ end()
 
 // most recent job in the programming category
 $browser->info('1 - The homepage')->
-  get('/')->
-  info('  1.4 - Jobs are sorted by date')->
-  with('response')->begin()->
-    checkElement(sprintf('.category_programming tr:first a[href*="/%d/"]',
-      $browser->getMostRecentProgrammingJob()->getId()))->
-  end()
-;
+get('/')->
+info('  1.4 - Jobs are sorted by date')->
+with('response')->begin()->
+checkElement(sprintf('.category_programming tr:first a[href*="/%d/"]',
+		$browser->getMostRecentProgrammingJob()->getId()))->
+		end()
+		;
 
 $job = $browser->getMostRecentProgrammingJob();
 
@@ -198,5 +198,27 @@ click('Preview your job', array('job' => array(
 with('form')->begin()->
 hasErrors(7)->
 hasGlobalError('extra_fields')->
+end()
+;
+
+$browser->
+info('4 - User job history')->
+
+loadData()->
+restart()->
+
+info('  4.1 - When the user access a job, it is added to its history')->
+get('/')->
+click('Web Developer', array(), array('position' => 1))->
+get('/')->
+with('user')->begin()->
+isAttribute('job_history', array($browser->getMostRecentProgrammingJob()->getId()))->
+end()->
+
+info('  4.2 - A job is not added twice in the history')->
+click('Web Developer', array(), array('position' => 1))->
+get('/')->
+with('user')->begin()->
+isAttribute('job_history', array($browser->getMostRecentProgrammingJob()->getId()))->
 end()
 ;
