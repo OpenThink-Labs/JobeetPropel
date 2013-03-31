@@ -1,5 +1,12 @@
 # You can find more information about this file on the symfony website:
 # http://www.symfony-project.org/reference/1_4/en/10-Routing
+affiliate:
+  class:   sfPropelRouteCollection
+  options:
+    model: JobeetAffiliate
+    actions: [new, create]
+    object_actions: { wait: get }
+    
 category:
   url:     /category/:slug.:sf_format
   class:    sfPropelRoute
@@ -28,6 +35,14 @@ job_show_user:
   requirements:
     id: \d+
     sf_method: [get]
+    
+api_jobs:
+  url:     /api/:token/jobs.:sf_format
+  class:   sfPropelRoute
+  param:   { module: api, action: list }
+  options: { model: JobeetJob, type: list, method: getForToken }
+  requirements:
+    sf_format: (?:xml|json|yaml)    
 
 # default rules
 homepage:
