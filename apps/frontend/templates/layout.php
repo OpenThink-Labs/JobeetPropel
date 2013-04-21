@@ -4,7 +4,7 @@
   <head>
 	<title>
 	  <?php if (!include_slot('title')): ?>
-	    Jobeet - Your best job board
+	    Amanah - Situs Lowongan Kerja Pendidik &amp; Tenaga Kependidikan
 	  <?php endif ?>
 	</title>
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -18,7 +18,7 @@
       <div id="header">   
         <div class="content">
           <h1><a href="<?php echo url_for('@homepage') ?>">
-            <img src="/legacy/images/logo.jpg" alt="Jobeet Job Board" />
+            <img src="/legacy/images/logo.jpg" alt="Amanah" />
           </a></h1>
  
           <div id="sub_header">
@@ -31,9 +31,8 @@
  
             <div class="search">
               <h2>Ask for a job</h2>
-              <form action="" method="get">
-                <input type="text" name="keywords"
-                  id="search_keywords" />
+              <form action="<?php echo url_for('job_search') ?>" method="get">
+                <input type="text" name="query" value="<?php echo $sf_request->getParameter('query') ?>" id="search_keywords" />
                 <input type="submit" value="search" />
                 <div class="help">
                   Enter some keywords (city, country, position, ...)

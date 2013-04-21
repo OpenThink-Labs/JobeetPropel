@@ -23,6 +23,10 @@ job:
     object_actions: { publish: PUT, extend: PUT } 
   requirements: 
     token: \w+ 
+    
+job_search:
+  url:   /search
+  param: { module: job, action: search }    
   
 job_show_user:
   url:   /job/:company_slug/:location_slug/:id/:position_slug

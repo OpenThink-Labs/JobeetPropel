@@ -78,4 +78,19 @@ class JobeetJobPeer extends BaseJobeetJobPeer
 
 		return $affiliate->getActiveJobs();
 	}
+	
+	public static function getForPlainPHPSearchQuery($query) {
+		$criteria = new Criteria(); 
+		$cton1 = $criteria->getNewCriterion(self::COMPANY,'%'.$query.'%',Criteria::LIKE);
+		$cton2 = $criteria->getNewCriterion(self::POSITION,'%'.$query.'%',Criteria::LIKE);
+		$cton1->addOr($cton2);
+		$cton3 = $criteria->getNewCriterion(self::LOCATION,'%'.$query.'%',Criteria::LIKE);
+		$cton1->addOr($cton3);
+		$cton4 = $criteria->getNewCriterion(self::DESCRIPTION,'%'.$query.'%',Criteria::LIKE);
+		$cton1->addOr($cton4);
+		$criteria->addOr($cton1);
+		//$criteria->addOr($cton3);
+		//$criteria->addOr($cton4);
+		return self::doSelect(self::addActiveJobsCriteria($criteria));
+	}
 }
