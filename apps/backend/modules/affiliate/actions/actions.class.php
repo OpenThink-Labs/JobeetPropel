@@ -15,39 +15,57 @@ class affiliateActions extends autoAffiliateActions
 {
 	public function executeListActivate()
 	{
-		$this->getRoute()->getObject()->activate();
-	
+		$affiliate = $this->getRoute()->getObject();
+		$affiliate->activate();
+
+		// send an email to the affiliate
+		$message = $this->getMailer()->compose(
+				array('amanah@negeripelangi.org' => 'Amanah'),
+				$affiliate->getEmail(),
+				'Amanah affiliate token',
+				<<<EOF
+Your Amanah affiliate account has been activated.
+
+Your token is {$affiliate->getToken()}.
+
+The Amanah Bot.
+EOF
+		);
+
+		$this->getMailer()->send($message);
+
 		$this->redirect('jobeet_affiliate');
 	}
-	
-	public function executeListDeactivate()
+}
+
+public function executeListDeactivate()
+{
+	$this->getRoute()->getObject()->deactivate();
+
+	$this->redirect('jobeet_affiliate');
+}
+
+public function executeBatchActivate(sfWebRequest $request)
+{
+	$affiliates = JobeetAffiliatePeer::retrieveByPks($request->getParameter('ids'));
+
+	foreach ($affiliates as $affiliate)
 	{
-		$this->getRoute()->getObject()->deactivate();
-	
-		$this->redirect('jobeet_affiliate');
+		$affiliate->activate();
 	}
-	
-	public function executeBatchActivate(sfWebRequest $request)
+
+	$this->redirect('jobeet_affiliate');
+}
+
+public function executeBatchDeactivate(sfWebRequest $request)
+{
+	$affiliates = JobeetAffiliatePeer::retrieveByPks($request->getParameter('ids'));
+
+	foreach ($affiliates as $affiliate)
 	{
-		$affiliates = JobeetAffiliatePeer::retrieveByPks($request->getParameter('ids'));
-	
-		foreach ($affiliates as $affiliate)
-		{
-			$affiliate->activate();
-		}
-	
-		$this->redirect('jobeet_affiliate');
+		$affiliate->deactivate();
 	}
-	
-	public function executeBatchDeactivate(sfWebRequest $request)
-	{
-		$affiliates = JobeetAffiliatePeer::retrieveByPks($request->getParameter('ids'));
-	
-		foreach ($affiliates as $affiliate)
-		{
-			$affiliate->deactivate();
-		}
-	
-		$this->redirect('jobeet_affiliate');
-	}	
+
+	$this->redirect('jobeet_affiliate');
+}
 }
