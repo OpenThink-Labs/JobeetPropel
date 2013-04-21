@@ -14,7 +14,9 @@ default:
 
   stylesheets:    [main.css]
 
-  javascripts:    []
+  javascripts:    
+                  - /js/jquery/jquery.min.js
+                  - /js/search.js
 
   has_layout:     true
   layout:         layout
